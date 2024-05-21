@@ -3,6 +3,7 @@ import Button from "./Button";
 import {
   faBookmark as faBookmarkSolid,
   faHandPointUp,
+  faInfoCircle,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
@@ -49,17 +50,23 @@ export default function WikiCard({ data }: { data: WikiData }) {
         <Button
           onClick={searchHandler}
           className="flex-grow rounded-l rounded-r-none"
+          tooltip="Search"
         >
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </Button>
 
-        <Button onClick={infoHandler} className="flex-grow rounded-none">
-          <FontAwesomeIcon icon={faHandPointUp} />
+        <Button
+          onClick={infoHandler}
+          className="flex-grow rounded-l-none rounded-r-none"
+          tooltip="More Info"
+        >
+          <FontAwesomeIcon icon={faInfoCircle} className="text-lg" />
         </Button>
 
         <Button
           onClick={saveHandler}
           className="flex-grow rounded-l-none rounded-r"
+          tooltip={isSaved ? "Remove from Saved" : "Add to Saved"}
         >
           {isSaved ? (
             <FontAwesomeIcon icon={faBookmarkSolid} />

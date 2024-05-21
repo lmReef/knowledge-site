@@ -11,7 +11,6 @@ export default function InfoPage() {
   const router = useRouter();
   const query = router.query.slug || null;
   const [mainData, setMainData] = useState<CustomData | null>(null);
-  const [content, setContent] = useState<WikiData[] | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {

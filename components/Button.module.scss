@@ -1,0 +1,11 @@
+.button {
+    .tooltip {
+        filter: opacity(0);
+    }
+
+    &:hover {
+        .tooltip {
+            filter: opacity(1);
+        }
+    }
+}
