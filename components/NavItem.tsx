@@ -1,16 +1,16 @@
 import Link from "next/link";
 
 export default function NavItem({
-  text,
   link,
+  children,
 }: {
-  text: string;
   link: string;
+  children?: React.ReactNode;
 }) {
   return (
     <Link href={link}>
       <div className="nav-item flex h-full items-center justify-center p-4">
-        {text}
+        {children}
       </div>
     </Link>
   );
