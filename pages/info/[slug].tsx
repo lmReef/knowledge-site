@@ -1,16 +1,19 @@
+import SaveButton from "@/components/SaveButton";
 import Layout from "@/components/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-interface CustomData {
-  desc: string[];
-  image: string;
-}
-
 export default function InfoPage() {
   const router = useRouter();
   const query = router.query.slug || null;
-  const [mainData, setMainData] = useState<CustomData | null>(null);
+  const [wikiHtml, setWikiHtml] = useState<HTMLElement | null>(null);
+
+  const title =
+    typeof query === "string"
+      ? query.replace("_", " ")
+      : query
+        ? query[0].replace("_", " ")
+        : "";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,22 +24,28 @@ export default function InfoPage() {
       const html = document.createElement("html");
       html.innerHTML = json.html;
 
-      const descElements: NodeListOf<HTMLElement> = html.querySelectorAll(
-        "body > section:first-child > p",
-      );
-      const descText: string[] = Array.from(descElements).map((x) =>
-        x.innerText?.replace(/\[[0-9]+\]/gi, ""),
+      // clean the html
+      // remove links from images
+      (
+        Array.from(html.querySelectorAll("a:has(>img)")) as HTMLImageElement[]
+      ).forEach((x) => x.attributes.removeNamedItem("href"));
+
+      // fix hardcoded styles
+      Array.from(html.querySelectorAll("*[style*='background']")).forEach(
+        (x) => {
+          x.setAttribute(
+            "style",
+            x
+              .getAttribute("style")
+              ?.replace(
+                /background(:|.*?:)(.*?)(;|$)/gim,
+                "background$1: #444444$3",
+              ) || "",
+          );
+        },
       );
 
-      const imgElement: HTMLImageElement | null = html.querySelector(
-        ".image-section img, .mw-file-description img, img.mw-file-element",
-      );
-      const img = imgElement?.src || "";
-
-      setMainData({
-        desc: descText,
-        image: img,
-      });
+      setWikiHtml(html);
     };
 
     if (query) fetchData();
@@ -44,17 +53,18 @@ export default function InfoPage() {
 
   return (
     <Layout>
-      <div className="info-page flex w-full flex-row flex-wrap gap-8">
-        <h1 className="text-2xl">{query}</h1>
-        {mainData?.desc ? (
-          <div className="flex gap-8">
-            <div className="">
-              {mainData.desc.map((x, key) => (
-                <p key={key}>{x}</p>
-              ))}
-            </div>
-            <img src={mainData.image} className="flex-grow" />
-          </div>
+      <div className="info-page flex w-full flex-col gap-6 px-24">
+        <div className="title flex gap-6">
+          <h1 className="text-4xl">{title}</h1>
+          <SaveButton title={title} className="px-4" />
+        </div>
+        {wikiHtml ? (
+          <div
+            className="wiki-body text-gray-300"
+            dangerouslySetInnerHTML={{
+              __html: wikiHtml.querySelector("body")?.innerHTML || "",
+            }}
+          />
         ) : (
           <p>Loading...</p>
         )}

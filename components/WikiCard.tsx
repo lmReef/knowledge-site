@@ -2,18 +2,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "./Button";
 import {
   faBookmark as faBookmarkSolid,
-  faHandPointUp,
   faInfoCircle,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { addToSaved, getSaved, removeFromSaved } from "@/scripts/LocalStorage";
 import { useEffect, useState } from "react";
-import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
+import SaveButton from "./SaveButton";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
-  const [isSaved, setIsSaved] = useState(false);
 
   const searchHandler = () => {
     if (router)
@@ -22,19 +19,15 @@ export default function WikiCard({ data }: { data: WikiData }) {
       );
   };
 
-  const saveHandler = () => {
-    if (!isSaved) addToSaved(data.title);
-    else removeFromSaved(data.title);
-
-    setIsSaved(!isSaved);
-  };
-
   const infoHandler = () => {
     router.push(`/info/${data.title}`);
   };
 
   useEffect(() => {
-    setIsSaved(getSaved().includes(data.title));
+    const setImage = async () => {
+      // console.log(await fetch(""));
+    };
+    setImage();
   }, []);
 
   return (
@@ -63,17 +56,10 @@ export default function WikiCard({ data }: { data: WikiData }) {
           <FontAwesomeIcon icon={faInfoCircle} className="text-lg" />
         </Button>
 
-        <Button
-          onClick={saveHandler}
+        <SaveButton
+          title={data.title}
           className="flex-grow rounded-l-none rounded-r"
-          tooltip={isSaved ? "Remove from Saved" : "Add to Saved"}
-        >
-          {isSaved ? (
-            <FontAwesomeIcon icon={faBookmarkSolid} />
-          ) : (
-            <FontAwesomeIcon icon={faBookmarkRegular} />
-          )}
-        </Button>
+        />
       </div>
     </div>
   );

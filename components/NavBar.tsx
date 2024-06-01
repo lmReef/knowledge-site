@@ -7,7 +7,7 @@ import { faBook, faBookmark } from "@fortawesome/free-solid-svg-icons";
 export default function NavBar() {
   return (
     <>
-      <div className="navbar fixed flex h-20 w-full items-center gap-2 bg-white bg-opacity-5 shadow-sm shadow-gray-900 backdrop-blur-md">
+      <div className="navbar fixed z-10 flex h-20 w-full items-center gap-2 bg-white bg-opacity-5 shadow-sm shadow-gray-900 backdrop-blur-md">
         <Link href="/">
           <div className="nav-logo h-full p-6 text-2xl">
             <FontAwesomeIcon icon={faBook} />

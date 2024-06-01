@@ -1,0 +1,128 @@
+.wiki-body {
+  a {
+    color: #53bff9;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: white;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    font-size: 1.22rem;
+    margin-bottom: 0.6rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h5 {
+    font-size: 1.15rem;
+    margin-bottom: 0.45rem;
+  }
+
+  section {
+    padding: 1rem 0;
+    margin: 1rem;
+
+    &:not(:last-of-type) {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  img {
+    border-radius: 4px;
+  }
+
+  p {
+    margin-bottom: 0.8rem;
+  }
+
+  table {
+    background-color: #444444;
+    border-radius: 4px;
+
+    th,
+    td {
+      padding: 0.75rem;
+    }
+  }
+
+  figure {
+    display: table;
+    text-align: center;
+    clear: right;
+    float: right;
+    margin: 1rem;
+
+    &.mw-halign-left {
+      clear: left;
+      float: left;
+    }
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+    }
+  }
+
+  .infobox {
+    float: right;
+    clear: right;
+    margin: 0 0 1rem 1rem;
+  }
+
+  .hatnote,
+  figcaption {
+    font-size: 0.75rem;
+  }
+
+  .gallery {
+    text-align: center;
+    overflow-x: hidden;
+
+    .gallerybox {
+      display: inline-grid;
+      text-overflow: ellipsis;
+      margin: 0.5rem;
+
+      .gallerytext {
+        display: inline;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .thumbinner,
+  .multiimageinner {
+    width: unset !important;
+    max-width: unset !important;
+  }
+
+  .thumb.tmulti .trow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem;
+  }
+
+  .tright {
+    float: right;
+    clear: right;
+  }
+
+  .tleft {
+    float: left;
+    clear: left;
+  }
+}
