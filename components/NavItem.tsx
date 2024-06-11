@@ -12,7 +12,7 @@ export default function NavItem({
   return (
     <Link href={link}>
       <div
-        className={`nav-item flex h-full items-center justify-center p-4 ${className || ""}`}
+        className={`nav-item flex h-full items-center justify-center gap-2 p-4 ${className || ""}`}
       >
         {children}
       </div>

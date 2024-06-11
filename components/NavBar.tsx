@@ -2,7 +2,13 @@ import Link from "next/link";
 import NavItem from "./NavItem";
 import SearchBar from "./SearchBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBook,
+  faBookmark,
+  faFire,
+  faHome,
+  faShuffle,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBar() {
   return (
@@ -14,14 +20,25 @@ export default function NavBar() {
           </div>
         </Link>
 
-        <NavItem link="/">Home</NavItem>
-        <NavItem link="/">Browse</NavItem>
+        <NavItem link="/">
+          <FontAwesomeIcon icon={faHome} />
+          Home
+        </NavItem>
+        <NavItem link="/">
+          <FontAwesomeIcon icon={faFire} />
+          Popular
+        </NavItem>
+        <NavItem link="/">
+          <FontAwesomeIcon icon={faShuffle} />
+          Random
+        </NavItem>
 
         <SearchBar />
 
         <div className="ml-auto">
           <NavItem link="/saved" className="px-6">
-            Saved <FontAwesomeIcon icon={faBookmark} className="ml-4 text-xl" />
+            <FontAwesomeIcon icon={faBookmark} className="text-xl" />
+            Saved
           </NavItem>
         </div>
       </div>
