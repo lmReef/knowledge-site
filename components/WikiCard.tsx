@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "./Button";
 import {
-  faBookmark as faBookmarkSolid,
   faInfoCircle,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SaveButton from "./SaveButton";
+import styles from "./WikiCard.module.scss";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
@@ -31,12 +31,17 @@ export default function WikiCard({ data }: { data: WikiData }) {
   }, []);
 
   return (
-    <div className="wiki-card m-auto flex h-fit w-80 max-w-80 flex-col gap-2 rounded bg-white bg-opacity-5 p-4 pb-0 text-center">
+    <div
+      className={`wiki-card m-auto flex max-h-full w-80 max-w-80 flex-col gap-2 rounded bg-white bg-opacity-5 p-4 pb-0 text-center ${styles["wiki-card"]}`}
+    >
       <h3 className="text-xl">{data.title}</h3>
 
       <p>{data.description}</p>
       {data.thumbnail && (
-        <img src={`https:${data.thumbnail.url}`} className="rounded-sm" />
+        <img
+          src={`https:${data.thumbnail.url}`}
+          className="h-56 max-h-56 flex-shrink rounded-sm object-cover"
+        />
       )}
 
       <div className="wiki-card-toolbar -mx-4 mt-2 flex pb-0">
