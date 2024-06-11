@@ -6,6 +6,17 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  // theme colors
+  --custom-primary: #53bff9;
+  --custom-secondary: #536cf9;
+  --custom-tertiary: #f98d53;
+
+  // variables for wiki styling
+  --color-emphasized: white;
+  --background-color-interactive-subtle: none;
+  --border-subtle: none;
+  --custom-box-shadow: 2px 3px 8px #00000090;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +28,15 @@
 }
 
 body {
+  a {
+    color: var(--custom-primary);
+    text-decoration: none !important;
+
+    &:visited {
+      color: var(--custom-primary);
+    }
+  }
+
   color: rgb(var(--foreground-rgb));
   background-color: #333333;
   /* background: linear-gradient( */

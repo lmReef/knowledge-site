@@ -20,7 +20,7 @@ export default function NavBar() {
         <SearchBar />
 
         <div className="ml-auto">
-          <NavItem link="/saved">
+          <NavItem link="/saved" className="px-6">
             Saved <FontAwesomeIcon icon={faBookmark} className="ml-4 text-xl" />
           </NavItem>
         </div>

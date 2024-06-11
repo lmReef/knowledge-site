@@ -9,7 +9,7 @@ export default function Layout({
     <>
       <NavBar />
 
-      <main className="flex min-h-screen flex-col items-center p-12">
+      <main className="flex min-h-screen flex-col items-center overflow-hidden p-4 md:p-36 md:pt-6">
         {children}
       </main>
     </>
