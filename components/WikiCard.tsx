@@ -11,7 +11,6 @@ import styles from "./WikiCard.module.scss";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
-  const [fullData, setFullData] = useState(null);
 
   const searchHandler = () => {
     if (router)
@@ -24,14 +23,13 @@ export default function WikiCard({ data }: { data: WikiData }) {
     router.push(`/info/${data.title}`);
   };
 
-  // TODO: working on this
-  // useEffect(() => {
-  //   fetch(`https://en.wikipedia.org/w/rest.php/v1/page/${data.title}/with_html`)
-  //     .then((res) => res.json())
-  //     .then((json) => {
+  if (data.thumbnail) {
+    if (data.thumbnail.source) {
+      data.thumbnail.url = data.thumbnail.source;
+    }
 
-  //     });
-  // }, []);
+    data.thumbnail.url = data.thumbnail.url.replace(/[0-9]+px/, "/300px");
+  }
 
   return (
     <div
@@ -46,7 +44,7 @@ export default function WikiCard({ data }: { data: WikiData }) {
       </p>
       {data.thumbnail && (
         <img
-          src={`https:${data.thumbnail.url}`}
+          src={`${data.thumbnail.url}`}
           className="h-56 flex-grow rounded-sm object-cover"
         />
       )}
