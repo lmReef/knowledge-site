@@ -12,6 +12,7 @@ interface WikiData {
     width: number;
     mimetype: string;
     url: string;
+    source?: string;
   } | null;
   invalidreason?: string;
 }

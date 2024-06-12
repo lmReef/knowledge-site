@@ -57,9 +57,11 @@ export default function CustomSlider({
                   x.article?.toLowerCase().includes(y.toLowerCase()),
                 ),
             )
-            .slice(0, limit);
+            .slice(0, limit)
+            .map((x: WikiData) => x.article || "")
+            .join("|");
           handler(
-            `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=description|pageimages&titles=${articles.reduce((acc, next) => acc + next.article + "|", "")}&origin=*`,
+            `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=description|pageimages&titles=${articles}&origin=*`,
           );
         }
       }

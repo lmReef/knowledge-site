@@ -5,7 +5,6 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import SaveButton from "./SaveButton";
 import styles from "./WikiCard.module.scss";
 
@@ -23,6 +22,8 @@ export default function WikiCard({ data }: { data: WikiData }) {
     router.push(`/info/${data.title}`);
   };
 
+  // TODO: probably move this out of this component and process all the data as it's received
+  // because sometimes the responses are slightly different
   if (data.thumbnail) {
     if (data.thumbnail.source) {
       data.thumbnail.url = data.thumbnail.source;
