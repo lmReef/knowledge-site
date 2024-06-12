@@ -15,11 +15,6 @@ export default function InfoPage() {
         ? query[0].replace("_", " ")
         : "";
 
-  const iframeHelper = (obj: any) => {
-    obj.style.height =
-      obj.contentWindow.document.documentElement.scrollHeight + "px";
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
@@ -34,7 +29,6 @@ export default function InfoPage() {
         "link[rel='stylesheet']",
       );
       if (stylesheet) {
-        const url = new URL(stylesheet.href);
         stylesheet.href =
           "http://en.wikipedia.org" +
           stylesheet.href.replace(/^.*?(\/w\/)/, "$1");
@@ -45,12 +39,13 @@ export default function InfoPage() {
       )?.forEach((x) => x.remove());
 
       // remove links from images
-      Array.from(html.querySelectorAll("a:has(>img)")).forEach(
-        (x: HTMLElement) => x.attributes.removeNamedItem("href"),
+      Array.from(html.querySelectorAll("a:has(>img)")).forEach((x) =>
+        x.attributes.removeNamedItem("href"),
       );
 
       // fix hardcoded styles
       Array.from(html.querySelectorAll("*[style*='color:']"))?.forEach((x) => {
+        //@ts-ignore
         if (x.style?.color) x.style.color = "";
       });
       Array.from(html.querySelectorAll("*[style*='background']")).forEach(
@@ -71,7 +66,7 @@ export default function InfoPage() {
     };
 
     if (query) fetchData();
-  }, [router]);
+  }, [router, query]);
 
   return (
     <Layout>

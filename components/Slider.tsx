@@ -81,7 +81,7 @@ export default function CustomSlider({
     };
 
     handler(url);
-  }, []);
+  }, [url, limit]);
 
   return (
     <>

@@ -26,7 +26,7 @@ export default function SearchPage() {
     };
 
     if (query) fetchData();
-  }, [router]);
+  }, [router, query]);
 
   return (
     <Layout>

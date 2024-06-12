@@ -9,7 +9,7 @@ export function addToSaved(item: string) {
   localStorage.setItem("saved", JSON.stringify(Array.from(saved)));
 }
 
-export function setSaved(data: [string]) {
+export function setSaved(data: string[]) {
   localStorage.setItem("saved", JSON.stringify(data));
 }
 
@@ -25,6 +25,6 @@ export function removeFromSaved(item: string) {
 
 export function getSaved() {
   return typeof window !== "undefined"
-    ? (JSON.parse(localStorage.getItem("saved") || "[]") as [string])
+    ? (JSON.parse(localStorage.getItem("saved") || "[]") as string[])
     : [];
 }
