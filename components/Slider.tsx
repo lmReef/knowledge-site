@@ -5,9 +5,11 @@ import Slider from "react-slick";
 export default function CustomSlider({
   title,
   url,
+  limit = 30,
 }: {
   title: string;
   url: string;
+  limit?: number;
 }) {
   const [data, setData] = useState<WikiData[] | null>(null);
 
@@ -28,11 +30,42 @@ export default function CustomSlider({
   };
 
   useEffect(() => {
-    const filters = ["(disambiguation)"]; // to filter out junk items
-    const limit = 20;
-    fetch(url + `&limit=${limit}`)
-      .then((res) => res.json())
-      .then((json) => setData(json.pages));
+    // shadows `url` so we can call it recursively if needed
+    const handler = async (url: string) => {
+      const filters = [
+        "(disambiguation)",
+        "Main_Page",
+        "Special:",
+        "Wikipedia:",
+      ];
+
+      const res = await fetch(url);
+      const json = await res.json();
+
+      if (json.query && !json.pages && json.query.pages) {
+        json.pages = Object.values(json.query.pages);
+      }
+      if (json.pages) {
+        setData(json.pages.filter((x: WikiData) => !x.invalidreason));
+      } else if (json.items) {
+        const items = json.items[0];
+        if (items.articles) {
+          const articles = items.articles
+            .filter(
+              (x: WikiData) =>
+                !filters.some((y) =>
+                  x.article?.toLowerCase().includes(y.toLowerCase()),
+                ),
+            )
+            .slice(0, limit);
+          handler(
+            `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=description|pageimages&titles=${articles.reduce((acc, next) => acc + next.article + "|", "")}&origin=*`,
+          );
+        }
+      }
+    };
+
+    handler(url);
   }, []);
 
   return (

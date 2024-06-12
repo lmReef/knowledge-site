@@ -2,6 +2,7 @@ interface WikiData {
   id: number;
   key: string;
   title: string;
+  article?: string;
   excerpt: string;
   matched_title: string | null;
   description: string;
@@ -12,6 +13,7 @@ interface WikiData {
     mimetype: string;
     url: string;
   } | null;
+  invalidreason?: string;
 }
 
 interface WikiResponse {
