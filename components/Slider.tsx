@@ -5,7 +5,7 @@ import Slider from "react-slick";
 export default function CustomSlider({
   title,
   url,
-  limit = 30,
+  limit = 50,
 }: {
   title: string;
   url: string;
@@ -19,7 +19,14 @@ export default function CustomSlider({
     initialSlide: 0,
     variableWidth: true,
     infinite: false,
+    arrows: true,
     responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+        },
+      },
       {
         breakpoint: 1300,
         settings: {
@@ -60,6 +67,7 @@ export default function CustomSlider({
             .slice(0, limit)
             .map((x: WikiData) => x.article || "")
             .join("|");
+          // the info we actually want, using titles from another response
           handler(
             `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=description|pageimages&titles=${articles}&origin=*`,
           );

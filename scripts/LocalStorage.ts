@@ -24,5 +24,7 @@ export function removeFromSaved(item: string) {
 }
 
 export function getSaved() {
-  return JSON.parse(localStorage.getItem("saved") || "[]") as [string];
+  return typeof window !== "undefined"
+    ? (JSON.parse(localStorage.getItem("saved") || "[]") as [string])
+    : [];
 }
