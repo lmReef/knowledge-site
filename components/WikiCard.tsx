@@ -7,7 +7,6 @@ import {
 import { useRouter } from "next/navigation";
 import SaveButton from "./SaveButton";
 import styles from "./WikiCard.module.scss";
-import Image from "next/image";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
@@ -45,7 +44,7 @@ export default function WikiCard({ data }: { data: WikiData }) {
         {data.description}
       </p>
       {data.thumbnail && (
-        <Image
+        <img
           src={`${data.thumbnail.url}`}
           className="h-56 flex-grow rounded-sm object-cover"
           alt="thumbnail"
