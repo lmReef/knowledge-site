@@ -11,6 +11,7 @@ import styles from "./WikiCard.module.scss";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
+  const [fullData, setFullData] = useState(null);
 
   const searchHandler = () => {
     if (router)
@@ -23,24 +24,30 @@ export default function WikiCard({ data }: { data: WikiData }) {
     router.push(`/info/${data.title}`);
   };
 
-  useEffect(() => {
-    const setImage = async () => {
-      // console.log(await fetch(""));
-    };
-    setImage();
-  }, []);
+  // TODO: working on this
+  // useEffect(() => {
+  //   fetch(`https://en.wikipedia.org/w/rest.php/v1/page/${data.title}/with_html`)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+
+  //     });
+  // }, []);
 
   return (
     <div
-      className={`wiki-card m-auto flex max-h-full w-80 max-w-80 flex-col gap-2 rounded bg-white bg-opacity-5 p-4 pb-0 text-center ${styles["wiki-card"]}`}
+      className={`wiki-card m-auto flex h-full max-h-full w-80 max-w-80 flex-shrink-0 flex-col gap-2 rounded bg-white bg-opacity-5 p-4 pb-0 text-center ${styles["wiki-card"]}`}
     >
-      <h3 className="text-xl">{data.title}</h3>
+      <h3 className="overflow-hidden text-ellipsis whitespace-nowrap text-xl">
+        {data.title}
+      </h3>
 
-      <p>{data.description}</p>
+      <p className="flex flex-grow flex-col justify-center">
+        {data.description}
+      </p>
       {data.thumbnail && (
         <img
           src={`https:${data.thumbnail.url}`}
-          className="h-56 max-h-56 flex-shrink rounded-sm object-cover"
+          className="h-56 flex-grow rounded-sm object-cover"
         />
       )}
 

@@ -1,10 +1,13 @@
+import Slider from "@/components/Slider";
 import Layout from "@/components/layout";
 
 export default function Home() {
   return (
     <Layout>
-      <h1>Homepage</h1>
-      <p>Search something</p>
+      <Slider
+        title="Popular"
+        url="https://en.wikipedia.org/w/rest.php/v1/search/page?q=submission-wrestling"
+      />
     </Layout>
   );
 }
