@@ -1,11 +1,13 @@
 import Link from "next/link";
 
 export default function NavItem({
-  link,
+  link = "/",
+  onclick,
   children,
   className,
 }: {
-  link: string;
+  link?: string;
+  onclick?: () => void;
   children?: React.ReactNode;
   className?: string;
 }) {
@@ -13,6 +15,7 @@ export default function NavItem({
     <Link href={link}>
       <div
         className={`nav-item flex h-full items-center justify-center gap-2 p-4 ${className || ""}`}
+        onClick={onclick}
       >
         {children}
       </div>

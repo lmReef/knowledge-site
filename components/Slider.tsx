@@ -54,10 +54,11 @@ export default function CustomSlider({
       }
       if (json.pages) {
         setData(json.pages.filter((x: WikiData) => !x.invalidreason));
-      } else if (json.items) {
-        const items = json.items[0];
-        if (items.articles) {
-          const articles = items.articles
+      } else if (json.items || json.query) {
+        const items = json.query || json.items[0];
+        if (items.articles || items.random) {
+          const toProcess = items.articles || items.random;
+          const articles = toProcess
             .filter(
               (x: WikiData) =>
                 !filters.some((y) =>
@@ -65,7 +66,11 @@ export default function CustomSlider({
                 ),
             )
             .slice(0, limit)
-            .map((x: WikiData) => x.article || "")
+            .map((x: WikiData) => {
+              if (x.article) return x.article;
+              else if (x.title) return x.title;
+              return "";
+            })
             .join("|");
           // the info we actually want, using titles from another response
           handler(
