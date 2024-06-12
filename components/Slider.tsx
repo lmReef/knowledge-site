@@ -14,7 +14,7 @@ export default function CustomSlider({
   const [data, setData] = useState<WikiData[] | null>(null);
 
   const sliderSettings = {
-    speed: 700,
+    speed: 350,
     slidesToScroll: 3,
     initialSlide: 0,
     variableWidth: true,
