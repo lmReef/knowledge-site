@@ -1,10 +1,12 @@
 .button {
     .tooltip {
+        display: none;
         filter: opacity(0);
     }
 
     &:hover {
         .tooltip {
+            display: unset;
             filter: opacity(1);
         }
     }
