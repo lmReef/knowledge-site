@@ -13,6 +13,7 @@ The idea is basically to pull info from wikipedia and design a UI more geared to
 - NextJS
 - ReactJS
 - Tailwind
+- SCSS/SASS
 
 ![image](https://github.com/lmReef/knowledge-site/assets/60915116/bfe3522b-dfcb-4b04-b37e-b930c06e7658)
 
