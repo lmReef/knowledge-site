@@ -1,5 +1,7 @@
 # Knowledge site
 
+Still a WIP
+
 Hosted at: https://main.d1zlnxw87p566t.amplifyapp.com/
 
 A website for learning random things.
