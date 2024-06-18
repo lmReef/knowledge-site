@@ -1,5 +1,6 @@
 import WikiCard from "@/components/WikiCard";
 import Layout from "@/components/layout";
+import { checkWikiResult } from "@/scripts/MediaWiki";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,6 @@ export default function SearchPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const filters = ["(disambiguation)"]; // to filter out junk items
       const limit = 12;
       const res = await fetch(
         `https://en.wikipedia.org/w/rest.php/v1/search/page?q=${query}&limit=${limit}`,
@@ -18,10 +18,7 @@ export default function SearchPage() {
       const json: WikiResponse = await res.json();
 
       setContent(
-        json.pages.filter(
-          (page: WikiData) =>
-            !filters.some((filter) => page.title.includes(filter)),
-        ),
+        json.pages.filter((page: WikiData) => checkWikiResult(page.title)),
       );
     };
 

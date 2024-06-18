@@ -42,7 +42,7 @@ export default function NavBar() {
           <FontAwesomeIcon icon={faHome} />
           Home
         </NavItem>
-        <NavItem link="/">
+        <NavItem link="/popular">
           <FontAwesomeIcon icon={faFire} />
           Popular
         </NavItem>

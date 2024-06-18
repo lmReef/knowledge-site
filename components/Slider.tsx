@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import WikiCard from "./WikiCard";
 import Slider from "react-slick";
+import { getWikiRecursive } from "@/scripts/MediaWiki";
 
 export default function CustomSlider({
   title,
@@ -37,50 +38,7 @@ export default function CustomSlider({
   };
 
   useEffect(() => {
-    // shadows `url` so we can call it recursively if needed
-    const handler = async (url: string) => {
-      const filters = [
-        "(disambiguation)",
-        "Main_Page",
-        "Special:",
-        "Wikipedia:",
-      ];
-
-      const res = await fetch(url);
-      const json = await res.json();
-
-      if (json.query && !json.pages && json.query.pages) {
-        json.pages = Object.values(json.query.pages);
-      }
-      if (json.pages) {
-        setData(json.pages.filter((x: WikiData) => !x.invalidreason));
-      } else if (json.items || json.query) {
-        const items = json.query || json.items[0];
-        if (items.articles || items.random) {
-          const toProcess = items.articles || items.random;
-          const articles = toProcess
-            .filter(
-              (x: WikiData) =>
-                !filters.some((y) =>
-                  x.article?.toLowerCase().includes(y.toLowerCase()),
-                ),
-            )
-            .slice(0, limit)
-            .map((x: WikiData) => {
-              if (x.article) return x.article;
-              else if (x.title) return x.title;
-              return "";
-            })
-            .join("|");
-          // the info we actually want, using titles from another response
-          handler(
-            `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=description|pageimages&titles=${articles}&origin=*`,
-          );
-        }
-      }
-    };
-
-    handler(url);
+    getWikiRecursive(url, limit).then((x) => setData(x));
   }, [url, limit]);
 
   return (
