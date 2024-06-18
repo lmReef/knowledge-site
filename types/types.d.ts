@@ -19,4 +19,9 @@ interface WikiData {
 
 interface WikiResponse {
   pages: WikiData[];
+  items?: [
+    {
+      articles: WikiData[];
+    },
+  ];
 }
