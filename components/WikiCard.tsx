@@ -7,7 +7,7 @@ import {
 import { useRouter } from "next/navigation";
 import SaveButton from "./SaveButton";
 import styles from "./WikiCard.module.scss";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export default function WikiCard({ data }: { data: WikiData }) {
   const router = useRouter();
@@ -45,26 +45,28 @@ export default function WikiCard({ data }: { data: WikiData }) {
       {data && (
         <>
           <h3
-            className={`overflow-hidden text-ellipsis whitespace-nowrap text-xl transition-all ${imageLoaded || "animate-pulse rounded bg-gray-400 text-[rgba(0,0,0,0)] opacity-20"}`}
+            className={`overflow-hidden text-ellipsis whitespace-nowrap bg-[rgba(0,0,0,0)] text-xl transition-all ${imageLoaded || "animate-pulse rounded bg-[rgba(150,150,150,1)] text-[rgba(0,0,0,0)] opacity-20"}`}
           >
             {data.title}
           </h3>
 
           <p
-            className={`flex flex-grow flex-col justify-center transition-all ${imageLoaded || "animate-pulse rounded bg-gray-400 text-[rgba(0,0,0,0)] opacity-20"}`}
+            className={`flex flex-grow flex-col justify-center bg-[rgba(0,0,0,0)] transition-all ${imageLoaded || "animate-pulse rounded bg-[rgba(150,150,150,1)] text-[rgba(0,0,0,0)] opacity-20"}`}
           >
             {data.description}
           </p>
 
           {data.thumbnail && (
-            <>
-              <img
-                onLoad={imageLoadedHandler}
-                src={`${data.thumbnail.url}`}
-                className={`h-56 flex-grow rounded-sm object-cover transition-all ${imageLoaded || "animate-pulse bg-gray-400 text-[rgba(0,0,0,0)] opacity-20"}`}
-                alt={"thumbnail"}
-              />
-            </>
+            // <div
+            //   className={`flex flex-grow rounded-sm bg-[rgba(0,0,0,0)] transition-all duration-500 ${imageLoaded || "animate-pulse bg-[rgba(150,150,150,1)] text-[rgba(0,0,0,0)] opacity-20"}`}
+            // >
+            <img
+              onLoad={imageLoadedHandler}
+              src={`${data.thumbnail.url}`}
+              className={`h-56 flex-grow rounded-sm object-cover opacity-100 transition-all duration-500 ${imageLoaded || "opacity-0"}`}
+              alt={"thumbnail"}
+            />
+            // </div>
           )}
 
           <div
