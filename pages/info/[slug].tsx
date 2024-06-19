@@ -1,4 +1,5 @@
 import SaveButton from "@/components/SaveButton";
+import CustomSlider from "@/components/Slider";
 import Layout from "@/components/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -62,6 +63,11 @@ export default function InfoPage() {
         },
       );
 
+      // add custom infobox if none found
+      if (!html.querySelector(".infobox")) {
+        html.querySelector(".sidebar")?.classList.add("infobox");
+      }
+
       setWikiHtml(html);
     };
 
@@ -71,20 +77,37 @@ export default function InfoPage() {
   return (
     <Layout>
       <div className="info-page flex w-full flex-col gap-6">
+        <div className="related-pages-top">
+          <CustomSlider
+            title="Related"
+            url={`https://en.wikipedia.org/w/api.php?action=query&format=json&list=backlinks&formatversion=2&bltitle=${title}&bllimit=25&blnamespace=0&origin=*`}
+          />
+        </div>
+
         <div className="title flex gap-6">
-          <h1 className="text-4xl">{title}</h1>
+          <h1 className="text-4xl" aria-label="title">
+            {title}
+          </h1>
           <SaveButton title={title} className="h-12 w-12 self-center px-4" />
         </div>
+
         {wikiHtml ? (
           <div
             className="wiki-body h-full w-full text-gray-300"
             dangerouslySetInnerHTML={{
               __html: wikiHtml.innerHTML || "",
             }}
+            aria-label="page main content"
           />
         ) : (
           <p>Loading...</p>
         )}
+        <div className="related-pages-bottom">
+          <CustomSlider
+            title="Related"
+            url={`https://en.wikipedia.org/w/api.php?action=query&format=json&list=backlinks&formatversion=2&bltitle=${title}&bllimit=25&origin=*`}
+          />
+        </div>
       </div>
     </Layout>
   );

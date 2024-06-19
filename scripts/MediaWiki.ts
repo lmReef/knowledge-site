@@ -6,14 +6,17 @@ export function checkWikiResult(word: string = "**null_placeholder**") {
     "(disambiguation)",
     "main_page",
     "special:",
+    "User:",
+    "talk:",
     "wikipedia:",
+    "-related articles",
   ];
 
   return !!!filters.some((filter) => word.toLowerCase().includes(filter));
 }
 
-/// Takes an api endpoint and forwards the results to another to get data in the format we
-/// usually want it in
+/// Takes an api endpoint and forwards the results to another to get data in the
+/// format we usually want it in
 export async function getWikiRecursive(url: string, limit = 50) {
   const res = await fetch(url);
   const json = await res.json();
@@ -25,8 +28,8 @@ export async function getWikiRecursive(url: string, limit = 50) {
     return json.pages.filter((x: WikiData) => !x.invalidreason);
   } else if (json.items || json.query) {
     const items = json.query || json.items[0];
-    if (items.articles || items.random) {
-      const toProcess = items.articles || items.random;
+    if (items.articles || items.random || items.backlinks) {
+      const toProcess = items.articles || items.random || items.backlinks;
       const articles = toProcess
         .filter((x: WikiData) => checkWikiResult(x.article || ""))
         .slice(0, limit)
