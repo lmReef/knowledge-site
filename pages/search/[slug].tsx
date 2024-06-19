@@ -11,7 +11,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const limit = 12;
+      const limit = 50;
       const res = await fetch(
         `https://en.wikipedia.org/w/rest.php/v1/search/page?q=${query}&limit=${limit}`,
       );
