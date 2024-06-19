@@ -19,6 +19,7 @@ export default function NavBar() {
   const [currentPage, setCurrentPage] = useState(router.asPath);
 
   const randomHandler = () => {
+    // TODO: make this stop spinning once /search/* has loaded
     setRandomClicked(true);
 
     fetch(
@@ -56,11 +57,14 @@ export default function NavBar() {
           Popular
         </NavItem>
         <NavItem onclick={randomHandler} currentPage={currentPage}>
+          {/*
           {randomClicked ? (
             <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
           ) : (
             <FontAwesomeIcon icon={faShuffle} />
           )}
+          */}
+          <FontAwesomeIcon icon={faShuffle} />
           Random
         </NavItem>
 

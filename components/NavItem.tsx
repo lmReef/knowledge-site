@@ -52,7 +52,7 @@ export default function NavItem({
         {children}
       </div>
       <div
-        className={`hover-accent-x absolute bottom-0 left-0 h-0 w-1 bg-[var(--custom-primary)] transition-all duration-300 ${styles["hover-accent"]} ${active ? "h-14 transition-none" : ""}`}
+        className={`hover-accent-x absolute bottom-0 left-0 h-0 w-1 bg-[var(--custom-primary)] transition-all duration-300 ${styles["hover-accent"]} ${active ? "h-14" : ""}`}
       />
     </>,
   );
