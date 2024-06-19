@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function SavedPage() {
   const [content, setContent] = useState<WikiData[]>([]);
 
-  const fetchAllSaved = () => {
+  useEffect(() => {
     const saved = getSaved();
 
     Promise.all(
@@ -20,12 +20,9 @@ export default function SavedPage() {
         return json.pages[0];
       }),
     ).then((json) => {
+      json.reverse();
       setContent(json);
     });
-  };
-
-  useEffect(() => {
-    fetchAllSaved();
   }, []);
 
   return (
