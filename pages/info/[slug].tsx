@@ -63,9 +63,12 @@ export default function InfoPage() {
         },
       );
 
-      // add custom infobox if none found
-      if (!html.querySelector(".infobox")) {
-        html.querySelector(".sidebar")?.classList.add("infobox");
+      // TODO: actually figure this styling out so we dont have to cut info
+      const collapse = html.querySelectorAll(
+        "tr:has(.collapsible-list, .mw-collapsible)",
+      );
+      if (collapse) {
+        Array.from(collapse).forEach((x) => (x.style.display = "none"));
       }
 
       setWikiHtml(html);
