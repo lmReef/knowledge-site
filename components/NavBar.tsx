@@ -10,12 +10,13 @@ import {
   faShuffle,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default function NavBar() {
   const router = useRouter();
   const [randomClicked, setRandomClicked] = useState(false);
+  const [currentPage, setCurrentPage] = useState(router.pathname);
 
   const randomHandler = () => {
     setRandomClicked(true);
@@ -29,6 +30,10 @@ export default function NavBar() {
       );
   };
 
+  useEffect(() => {
+    setCurrentPage(router.pathname);
+  }, [router.pathname]);
+
   return (
     <>
       <div className="navbar fixed z-10 flex h-20 w-full items-center gap-2 bg-white bg-opacity-5 shadow-sm shadow-gray-900 backdrop-blur-md">
@@ -38,15 +43,15 @@ export default function NavBar() {
           </div>
         </Link>
 
-        <NavItem link="/">
+        <NavItem link="/" currentPage={currentPage}>
           <FontAwesomeIcon icon={faHome} />
           Home
         </NavItem>
-        <NavItem link="/popular">
+        <NavItem link="/popular" currentPage={currentPage}>
           <FontAwesomeIcon icon={faFire} />
           Popular
         </NavItem>
-        <NavItem onclick={randomHandler}>
+        <NavItem onclick={randomHandler} currentPage={currentPage}>
           {randomClicked ? (
             <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
           ) : (
@@ -57,12 +62,15 @@ export default function NavBar() {
 
         <SearchBar />
 
-        <div className="ml-auto">
-          <NavItem link="/saved" className="px-6">
-            <FontAwesomeIcon icon={faBookmark} className="text-xl" />
-            Saved
-          </NavItem>
-        </div>
+        <NavItem
+          link="/saved"
+          className="px-6"
+          currentPage={currentPage}
+          align="right"
+        >
+          <FontAwesomeIcon icon={faBookmark} className="text-xl" />
+          Saved
+        </NavItem>
       </div>
       <span className="nav-spacer block h-20" />
     </>
