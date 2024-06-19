@@ -16,18 +16,23 @@ export default function NavItem({
   currentPage: string;
   align?: "left" | "right";
 }) {
-  const active = currentPage === link;
+  let active = currentPage === link;
+
+  //@ts-ignore
+  if (!link && children.includes("Random")) {
+    active = currentPage.includes("from=random");
+  }
 
   // because sometimes theres no link, so we want to wrap those cases with div instead
   const wrapper = (inner: React.ReactNode) => {
     const classes = `overflow-hidden ${styles["nav-item"]} relative rounded-sm ${align === "right" ? "ml-auto" : ""}`;
-    if (link)
+    if (link) {
       return (
         <Link href={link} className={classes}>
           {inner}
         </Link>
       );
-    else
+    } else {
       return (
         <div
           className={classes + " cursor-pointer text-[var(--custom-primary)]"}
@@ -35,6 +40,7 @@ export default function NavItem({
           {inner}
         </div>
       );
+    }
   };
 
   return wrapper(

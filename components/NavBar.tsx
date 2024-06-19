@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 export default function NavBar() {
   const router = useRouter();
   const [randomClicked, setRandomClicked] = useState(false);
-  const [currentPage, setCurrentPage] = useState(router.pathname);
+  const [currentPage, setCurrentPage] = useState(router.asPath);
 
   const randomHandler = () => {
     setRandomClicked(true);
@@ -26,13 +26,17 @@ export default function NavBar() {
     )
       .then((res) => res.json())
       .then((json) =>
-        router.push("/search/" + json.query.random[0].title.replace(" ", "_")),
+        router.push(
+          "/search/" +
+            json.query.random[0].title.replace(" ", "_") +
+            "&from=random",
+        ),
       );
   };
 
   useEffect(() => {
-    setCurrentPage(router.pathname);
-  }, [router.pathname]);
+    setCurrentPage(router.asPath);
+  }, [router.asPath]);
 
   return (
     <>
