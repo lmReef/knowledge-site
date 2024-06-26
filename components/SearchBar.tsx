@@ -40,7 +40,7 @@ export default function SearchBar() {
         setExpanded(false);
       };
     }
-  }, [inputRef.current]);
+  }, [inputRef]);
 
   return (
     <form onSubmit={searchHandler} className="ml-auto">

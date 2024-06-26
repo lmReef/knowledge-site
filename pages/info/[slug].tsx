@@ -68,6 +68,7 @@ export default function InfoPage() {
         "tr:has(.collapsible-list, .mw-collapsible)",
       );
       if (collapse) {
+        //@ts-ignore
         Array.from(collapse).forEach((x) => (x.style.display = "none"));
       }
 
