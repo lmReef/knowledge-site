@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import WikiCard from "./WikiCard";
 import Slider from "react-slick";
 import { getWikiRecursive } from "@/scripts/MediaWiki";
+import { breakpoints } from "@/scripts/Breakpoints";
 
 export default function CustomSlider({
   title,
@@ -23,13 +24,14 @@ export default function CustomSlider({
     arrows: true,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: breakpoints.md,
         settings: {
           arrows: false,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 1300,
+        breakpoint: breakpoints.xl,
         settings: {
           slidesToScroll: 1,
         },

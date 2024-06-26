@@ -12,11 +12,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { isMobile } from "@/scripts/Breakpoints";
 
 export default function NavBar() {
   const router = useRouter();
   const [randomClicked, setRandomClicked] = useState(false);
   const [currentPage, setCurrentPage] = useState(router.asPath);
+  const [mobile, setMobile] = useState(false);
 
   const randomHandler = () => {
     // TODO: make this stop spinning once /search/* has loaded
@@ -36,6 +38,7 @@ export default function NavBar() {
   };
 
   useEffect(() => {
+    setMobile(isMobile());
     setCurrentPage(router.asPath);
   }, [router.asPath]);
 
@@ -50,11 +53,11 @@ export default function NavBar() {
 
         <NavItem link="/" currentPage={currentPage}>
           <FontAwesomeIcon icon={faHome} />
-          Home
+          {!mobile && "Home"}
         </NavItem>
         <NavItem link="/popular" currentPage={currentPage}>
           <FontAwesomeIcon icon={faFire} />
-          Popular
+          {!mobile && "Popular"}
         </NavItem>
         <NavItem onclick={randomHandler} currentPage={currentPage}>
           {/*
@@ -65,19 +68,14 @@ export default function NavBar() {
           )}
           */}
           <FontAwesomeIcon icon={faShuffle} />
-          Random
+          {!mobile && "Random"}
         </NavItem>
 
         <SearchBar />
 
-        <NavItem
-          link="/saved"
-          className="px-6"
-          currentPage={currentPage}
-          align="right"
-        >
+        <NavItem link="/saved" className="px-6" currentPage={currentPage}>
           <FontAwesomeIcon icon={faBookmark} className="text-xl" />
-          Saved
+          {!mobile && "Saved"}
         </NavItem>
       </div>
       <span className="nav-spacer block h-20" />
