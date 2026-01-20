@@ -21,7 +21,7 @@ export default function WikiCard({ data }: { data: WikiData }) {
   };
 
   const infoHandler = () => {
-    if (data) router.push(`/info/${data.title}`);
+    if (data) router.push(`/wiki/${data.title}`);
   };
 
   const imageLoadedHandler = () => {
