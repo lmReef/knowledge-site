@@ -12,7 +12,7 @@ export default function PopularPage() {
     date = new Date(date.setDate(date.getDate() - 1));
 
     getWikiRecursive(
-      `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia.org/all-access/${date.getFullYear()}/${date.getMonth().toString().padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`,
+      `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia.org/all-access/${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, "0")}/${(date.getDate() - 1).toString().padStart(2, "0")}`,
     ).then((x) => setContent(x));
   }, []);
 
